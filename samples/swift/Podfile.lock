@@ -109,7 +109,7 @@ PODS:
     - Firebase/Storage (~> 6.0)
     - SDWebImage (~> 5.0)
   - GoogleDataTransport (1.2.0)
-  - GoogleDataTransportCCTSupport (1.0.3):
+  - GoogleDataTransportCCTSupport (1.0.4):
     - GoogleDataTransport (~> 1.2)
     - nanopb
   - GoogleSignIn (5.0.0):
@@ -218,7 +218,7 @@ SPEC CHECKSUMS:
   FirebaseStorage: b7c6d00997bc21d4465453bdcc5cc65513110fed
   FirebaseUI: 84a450a38d0556d6ec876926406ec1e3fe9712c5
   GoogleDataTransport: 8f9897b8e073687f24ca8d3c3a8013dec7d2d1cc
-  GoogleDataTransportCCTSupport: 51134d81fca795c60cc247d1cb6af63c3d67b8d8
+  GoogleDataTransportCCTSupport: 7455d07b98851aa63e4c05a34dad356ca588479e
   GoogleSignIn: a62edd0516721d2a3db1259a5681b91f9b41c06a
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
