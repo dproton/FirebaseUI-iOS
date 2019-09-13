@@ -197,9 +197,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-  self.searchResults = [self.countryCodes searchCountriesByName:searchController.searchBar.text];
-
-  [self.tableView reloadData];
+    NSString *searchText = [searchController.searchBar.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+    if (searchText.length == 0) {
+        self.searchResults = nil;
+    } else {
+        self.searchResults = [self.countryCodes searchCountriesByName:searchController.searchBar.text];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (BOOL)isSearchActive {
