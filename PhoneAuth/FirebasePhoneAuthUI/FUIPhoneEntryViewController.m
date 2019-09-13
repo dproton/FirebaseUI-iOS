@@ -147,6 +147,8 @@ static NSString *const kNextButtonAccessibilityID = @"NextButtonAccessibilityID"
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barStyle = UIStatusBarStyleDefault;
+
 
   if (self.navigationController.viewControllers.firstObject == self) {
     if (self.authUI.providers.count != 1){
