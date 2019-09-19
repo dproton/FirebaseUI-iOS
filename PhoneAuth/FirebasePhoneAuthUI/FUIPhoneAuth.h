@@ -18,10 +18,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class FUIPhoneAuth;
+
+@protocol FUIPhoneAuthDelegate <NSObject>
+
+@optional
+
+/** @fn authUI:didSignInWithAuthDataResult:error:
+ @brief Message sent after the sign in process has completed to report the signed in user or
+ error encountered.
+ @param authUI The @c FUIAuth instance sending the message.
+ @param authDataResult The data result if the sign in attempt was successful.
+ @param url pass the deep link associated with an email link sign-in completion. It is useful
+ for the developer to access the state before the sign-in attempt was triggered.
+ @param error The error that occurred during sign in, if any.
+ */
+- (void)authUI:(FUIAuth *)authUI
+     phoneAuth:(FUIPhoneAuth *)phoneAuth
+firebasePhoneLoginImpressionView:(UIViewController *)viewController;
+- (void)authUI:(FUIAuth *)authUI
+phoneAuth:(FUIPhoneAuth *)phoneAuth
+firebasePhoneLoginStartWithPhoneNumber:(NSString *)phoneNumber
+          view:(UIViewController *)viewController;
+
+@end
+
 /** @class FUIPhoneAuth
     @brief AuthUI components for Phone Sign In.
  */
 @interface FUIPhoneAuth : NSObject <FUIAuthProvider>
+
+@property(nonatomic, weak) id<FUIPhoneAuthDelegate> delegate;
 
 /** @fn init
     @brief Please use @c initWithAuthUI: .
@@ -67,6 +94,11 @@ __attribute__((deprecated("This is deprecated API and will be removed in a futur
  */
 - (void)signInWithPresentingViewController:(UIViewController *)presentingViewController
                                phoneNumber:(nullable NSString *)phoneNumber;
+
+- (void)setDefaultContryCode:(NSString *)code;
+
+@property (copy, nonatomic) NSString *phoneNumber;
+
 
 @end
 

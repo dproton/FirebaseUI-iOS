@@ -124,6 +124,10 @@ static NSString *const kNextButtonAccessibilityID = @"NextButtonAccessibilityID"
   return self;
 }
 
+- (void)setSelectedCountryCode:(NSString *)code {
+    _selectedCountryCode = [_countryCodes countryCodeInfoForCode:code];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   UIBarButtonItem *nextButtonItem =
@@ -143,6 +147,19 @@ static NSString *const kNextButtonAccessibilityID = @"NextButtonAccessibilityID"
   [_tosView useFullMessageWithSMSRateTerm];
 
   [self enableDynamicCellHeightForTableView:_tableView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    FUIPhoneAuth *delegate = [self.authUI providerWithID:FIRPhoneAuthProviderID];
+    if (![delegate isKindOfClass:[FUIPhoneAuth class]]) {
+        return;
+    }
+    if ([delegate.delegate respondsToSelector:@selector(authUI:phoneAuth:firebasePhoneLoginImpressionView:)]) {
+        [delegate.delegate authUI:self.authUI
+                        phoneAuth:delegate
+ firebasePhoneLoginImpressionView:self];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -199,6 +216,9 @@ static NSString *const kNextButtonAccessibilityID = @"NextButtonAccessibilityID"
     phoneNumberWithCountryCode =
         [NSString stringWithFormat:@"%@%@", selectedCountryCodeString, phoneNumber];
   }
+    FUIPhoneAuth *delegate = [self.authUI providerWithID:FIRPhoneAuthProviderID];
+    delegate.phoneNumber = phoneNumberWithCountryCode;
+
   [provider verifyPhoneNumber:phoneNumberWithCountryCode
                    UIDelegate:self
                    completion:^(NSString *_Nullable verificationID, NSError *_Nullable error) {

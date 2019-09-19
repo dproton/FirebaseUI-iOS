@@ -67,6 +67,9 @@ __attribute__((deprecated("This is deprecated API and will be removed in a futur
                          authUI:(FUIAuth *)authUI
                     phoneNumber:(nullable NSString *)phoneNumber
                    countryCodes:(nullable FUICountryCodes *)countryCodes NS_DESIGNATED_INITIALIZER;
+
+- (void)setSelectedCountryCode:(NSString *)code;
+
 @end
 
 NS_ASSUME_NONNULL_END

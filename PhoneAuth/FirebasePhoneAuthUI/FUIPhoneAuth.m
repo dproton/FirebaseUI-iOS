@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
   
   /** Available country codes For the authUI to use. */
   FUICountryCodes *_countryCodes;
+    
+    NSString *_defaultContryCode;
 }
 
 - (instancetype)initWithAuthUI:(FUIAuth *)authUI {
@@ -71,6 +73,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
   }
   return self;
+}
+
+- (void)setDefaultContryCode:(NSString *)code {
+    _defaultContryCode = code;
 }
 
 #pragma mark - FUIAuthProvider
@@ -156,9 +162,10 @@ NS_ASSUME_NONNULL_BEGIN
     return;
   }
 
-  UIViewController *controller = [[FUIPhoneEntryViewController alloc] initWithAuthUI:_authUI
-                                                                         phoneNumber:defaultValue
-                                                                        countryCodes:_countryCodes];
+  FUIPhoneEntryViewController *controller = [[FUIPhoneEntryViewController alloc] initWithAuthUI:_authUI
+                                                                                    phoneNumber:defaultValue
+                                                                                   countryCodes:_countryCodes];
+    [controller setSelectedCountryCode:_defaultContryCode];
   UINavigationController *navigationController =
       [[UINavigationController alloc] initWithRootViewController:controller];
   [presentingViewController presentViewController:navigationController animated:YES completion:nil];

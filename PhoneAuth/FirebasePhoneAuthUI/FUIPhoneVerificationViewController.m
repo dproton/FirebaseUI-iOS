@@ -105,6 +105,20 @@ static NSString *const kLinkPlaceholderPattern = @"\\[([^\\]]+)\\]";
   [_tosView useFooterMessage];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    FUIPhoneAuth *delegate = [self.authUI providerWithID:FIRPhoneAuthProviderID];
+    if (![delegate isKindOfClass:[FUIPhoneAuth class]]) {
+        return;
+    }
+    if ([delegate.delegate respondsToSelector:@selector(authUI:phoneAuth:firebasePhoneLoginStartWithPhoneNumber:view:)]) {
+        [delegate.delegate authUI:self.authUI
+                        phoneAuth:delegate
+firebasePhoneLoginStartWithPhoneNumber:_phoneNumber
+                             view:self];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self registerForKeyboardNotifications];
